@@ -1,0 +1,39 @@
+# infra/docker-compose.yml
+version: '3.8'
+services:
+  mongo:
+    image: mongo:6.0
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+  redis:
+    image: redis:7.0-alpine
+    ports:
+      - "6379:6379"
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.5.3
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+    ports:
+      - "9200:9200"
+  kibana:
+    image: docker.elastic.co/kibana/kibana:8.5.3
+    ports:
+      - "5601:5601"
+    depends_on:
+      - elasticsearch
+  # Add other services like Mailhog, Nginx, and your Node services later
+  # Example for a Node.js service:
+  # auth-service:
+  #   build:
+  #     context: ./services/auth
+  #   ports:
+  #     - "3001:3001"
+  #   depends_on:
+  #     - mongo
+  #     - redis
+
+volumes:
+  mongo-data:

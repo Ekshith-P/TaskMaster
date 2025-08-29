@@ -1,0 +1,27 @@
+openapi: 3.0.0
+info:
+  title: Booking Service
+  version: 1.0.0
+paths:
+  /booking:
+    post:
+      summary: Create a new booking
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                units:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      scope: { type: string, enum: [eventSeat, roomNight] }
+                      key: { type: object } # Define key structure
+      responses:
+        '201':
+          description: Booking initiated
+        '409':
+          description: Conflict, unit not available

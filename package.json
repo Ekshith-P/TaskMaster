@@ -1,0 +1,7 @@
+{
+  "name": "faang-booking-system",
+  "private": true,
+  "scripts": {
+    "dev:auth": "pnpm --filter auth dev"
+  }
+}
